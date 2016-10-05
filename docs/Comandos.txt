@@ -1,0 +1,49 @@
+// Mudar o Nome do NameSpace
+php artisan app:name NomeNameSpace
+
+
+// Copiar para o arquivo composer.json
+        "prettus/l5-repository": "^2.6",
+        "prettus/laravel-validation": "^1.1",
+        "lucadegasperi/oauth2-server-laravel": "^5.2",
+        "league/fractal": "^0.14.0",
+        "laravelcollective/html": "^5.3"
+
+// Modificar o arquivo config/app.php, acreasentar os Providers
+/**
+         * Instanciao os Repositori
+         */
+        Prettus\Repository\Providers\RepositoryServiceProvider::class,
+
+        /**
+         * Instanciaodo os Provider do OAuth
+         *
+         */
+        LucaDegasperi\OAuth2Server\Storage\FluentStorageServiceProvider::class,
+        LucaDegasperi\OAuth2Server\OAuth2ServerServiceProvider::class,
+
+// Gera a Entitidade User
+php artisan make:entity User
+
+// Configurar a Entidade User com o User Padrão
+
+// Modificar o Arquivo config/auth.php, para corrigir o caminha da Entidade user
+'providers' => [
+        'users' => [
+            'driver' => 'eloquent',
+            'model' => User::class,
+        ],
+
+// Configurar as configurações de banco no arquivo .env
+
+// Criação de Seeder
+php artisan make:seeder NomeSeedTableSeeder
+
+// Comando para Rodar as Seeder
+php artisan migrate:refresh --seed
+
+composer dump-autoload
+
+// Criando Middlewar
+php artisan make:middleware NomeMiddlewar
+
