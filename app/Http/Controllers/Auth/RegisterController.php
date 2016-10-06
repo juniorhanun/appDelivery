@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Controllers\Auth;
+namespace Delivery\Http\Controllers\Auth;
 
-use App\User;
+use Delivery\Entities\User;
 use Validator;
-use App\Http\Controllers\Controller;
+use Delivery\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\RegistersUsers;
 
 class RegisterController extends Controller
@@ -66,6 +66,12 @@ class RegisterController extends Controller
             'name' => $data['name'],
             'email' => $data['email'],
             'password' => bcrypt($data['password']),
+            'phpone' => $data['phpone'],
+            'zipcode' => $data['zipcode'],
+            'state' => $data['state'],
+            'city' => $data['city'],
+            'address' => $data['address'],
+
         ]);
     }
 }

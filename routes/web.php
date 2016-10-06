@@ -18,3 +18,29 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::get('/home', 'HomeController@index');
+
+// Rotas Admin
+Route::group(['prefix'=>'admin','as' =>'admin.', 'middleware' => 'auth.checkrole:admin' ],function(){
+
+    // Rotas Clientes
+    Route::group(['prefix'=>'clientes', 'as' =>'clientes.'],function(){
+        Route::get('', ['as' => 'index', 'uses' => 'UsersController@index']);
+        Route::get('nova', ['as' => 'nova', 'uses' => 'UsersController@nova']);
+        Route::post('salvar', ['as' => 'salvar', 'uses' => 'UsersController@store']);
+        Route::get('editar/{id}', ['as' => 'editar', 'uses' => 'UsersController@edit']);
+        Route::get('excluir/{id}', ['as' => 'excluir', 'uses' => 'UsersController@excluir']);
+        Route::post('alterar/{id}', ['as' => 'alterar', 'uses' => 'UsersController@update']);
+    });
+
+
+
+});
+
+// Rotas Clientes
+Route::group(['prefix'=>'cliente','as' =>'cliente.', 'middleware' => 'auth.checkrole:cliente' ],function(){
+    // Rotas Clientes
+    Route::group(['prefix'=>'perfil', 'as' =>'perfil.'],function(){
+        Route::get('altera', ['as' => 'altera', 'uses' => 'UsersController@perfil']);
+        Route::post('gravar/{id}', ['as' => 'gravar', 'uses' => 'UsersController@gravar']);
+    });
+});

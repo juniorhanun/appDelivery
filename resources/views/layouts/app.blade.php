@@ -43,7 +43,15 @@
                 <div class="collapse navbar-collapse" id="app-navbar-collapse">
                     <!-- Left Side Of Navbar -->
                     <ul class="nav navbar-nav">
-                        &nbsp;
+                        <li><a href="{{ url('/') }}">Home</a></li>
+                        @if(Auth::user())
+                            @if (Auth::user()->role == 'admin')
+                                <li><a href="{{ route('admin.clientes.index') }}">Clientes</a></li>
+                            @else(Auth::user()->role == 'cliente)
+                                <li><a href="{{ route('cliente.perfil.altera') }}">Perfil</a></li>
+                            @endif
+
+                        @endif
                     </ul>
 
                     <!-- Right Side Of Navbar -->
@@ -83,5 +91,8 @@
 
     <!-- Scripts -->
     <script src="/js/app.js"></script>
+    <script src="/js/jquery-3.1.1.min.js"></script>
+    <script src="/js/jquery.mask.min.js"></script>
+    <script src="/js/funcoes.js"></script>
 </body>
 </html>

@@ -166,17 +166,23 @@ return [
         /*
          * Package Service Providers...
          */
+        /**
+         * Instanciao os Repositori
+         */
+        Prettus\Repository\Providers\RepositoryServiceProvider::class,
+        Collective\Html\HtmlServiceProvider::class,
 
         //
 
         /*
          * Application Service Providers...
          */
-        App\Providers\AppServiceProvider::class,
-        App\Providers\AuthServiceProvider::class,
-        // App\Providers\BroadcastServiceProvider::class,
-        App\Providers\EventServiceProvider::class,
-        App\Providers\RouteServiceProvider::class,
+        Delivery\Providers\AppServiceProvider::class,
+        Delivery\Providers\AuthServiceProvider::class,
+        // Delivery\Providers\BroadcastServiceProvider::class,
+        Delivery\Providers\EventServiceProvider::class,
+        Delivery\Providers\RouteServiceProvider::class,
+        Delivery\Providers\RepositoryServiceProvider::class,
 
     ],
 
@@ -225,6 +231,8 @@ return [
         'URL' => Illuminate\Support\Facades\URL::class,
         'Validator' => Illuminate\Support\Facades\Validator::class,
         'View' => Illuminate\Support\Facades\View::class,
+        'Form' => Collective\Html\FormFacade::class,
+        'Html' => Collective\Html\HtmlFacade::class,
 
     ],
 
