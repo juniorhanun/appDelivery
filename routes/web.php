@@ -42,6 +42,16 @@ Route::group(['prefix'=>'admin','as' =>'admin.', 'middleware' => 'auth.checkrole
         Route::post('alterar/{id}', ['as' => 'alterar', 'uses' => 'CategoriesController@update']);
     });
 
+    // Rotas Produtos
+    Route::group(['prefix'=>'produtos', 'as' =>'produtos.'],function(){
+        Route::get('', ['as' => 'index', 'uses' => 'ProductsController@index']);
+        Route::get('nova', ['as' => 'nova', 'uses' => 'ProductsController@nova']);
+        Route::post('salvar', ['as' => 'salvar', 'uses' => 'ProductsController@store']);
+        Route::get('editar/{id}', ['as' => 'editar', 'uses' => 'ProductsController@edit']);
+        Route::get('excluir/{id}', ['as' => 'excluir', 'uses' => 'ProductsController@excluir']);
+        Route::post('alterar/{id}', ['as' => 'alterar', 'uses' => 'ProductsController@update']);
+    });
+
 
 
 });
