@@ -41,7 +41,11 @@ class CategoriesController extends Controller
     public function index()
     {
         $this->repository->pushCriteria(app('Prettus\Repository\Criteria\RequestCriteria'));
-        $categories = $this->repository->paginate();
+        $num = 1;
+        $categories = $this->repository->scopeQuery(function($query) use($num){
+            return $query->where('status', '=', $num);
+        })->paginate();
+        //$categories = $this->repository->all()->paginate();
 
         if (request()->wantsJson()) {
 
@@ -50,7 +54,16 @@ class CategoriesController extends Controller
             ]);
         }
 
-        return view('categories.index', compact('categories'));
+        return view('admin.categorias.index', compact('categories'));
+    }
+
+    /**
+     * Método para chamar o formulario de cadastro
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
+    public function nova()
+    {
+        return view('admin.categorias.create');
     }
 
     /**
@@ -70,7 +83,7 @@ class CategoriesController extends Controller
             $category = $this->repository->create($request->all());
 
             $response = [
-                'message' => 'Category created.',
+                'message' => 'Categoria Cadastrada Com Sucesso.',
                 'data'    => $category->toArray(),
             ];
 
@@ -79,7 +92,8 @@ class CategoriesController extends Controller
                 return response()->json($response);
             }
 
-            return redirect()->back()->with('message', $response['message']);
+            //return redirect()->back()->with('message', $response['message']);
+            return redirect()->route("admin.categorias.index");
         } catch (ValidatorException $e) {
             if ($request->wantsJson()) {
                 return response()->json([
@@ -127,7 +141,7 @@ class CategoriesController extends Controller
 
         $category = $this->repository->find($id);
 
-        return view('categories.edit', compact('category'));
+        return view('admin.categorias..edit', compact('category'));
     }
 
 
@@ -159,7 +173,7 @@ class CategoriesController extends Controller
             }
 
             //return redirect()->back()->with('message', $response['message']);
-            return redirect()->route("");
+            return redirect()->route("admin.categorias.index");
         } catch (ValidatorException $e) {
 
             if ($request->wantsJson()) {
@@ -195,5 +209,20 @@ class CategoriesController extends Controller
         }
 
         return redirect()->back()->with('message', 'Category deleted.');
+    }
+
+    /**
+     * @param $id
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function excluir($id)
+    {
+        $entidade = $this->repository->find($id);
+
+        $entidade->status = 0;
+
+
+        $this->repository->update($entidade->toArray(),$id);
+        return redirect()->route("admin.categorias.index");
     }
 }

@@ -11,7 +11,8 @@ class Category extends Model implements Transformable
     use TransformableTrait;
 
     protected $fillable = [
-        'name'
+        'name',
+        'status',
     ];
 
 }

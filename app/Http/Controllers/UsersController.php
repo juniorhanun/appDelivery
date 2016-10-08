@@ -204,15 +204,12 @@ class UsersController extends Controller
 
     public function excluir($id)
     {
-        $user = $this->repository->find($id);
-        //$user->status = 0;
-        //dd($user);
-        //$user->status = 0;
+        $entidade = $this->repository->find($id);
 
-        $user->status = 0;
+        $entidade->status = 0;
 
 
-        $this->repository->update($user->toArray(),$id);
+        $this->repository->update($entidade->toArray(),$id);
         return redirect()->route("admin.clientes.index");
     }
 

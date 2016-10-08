@@ -47,6 +47,7 @@
                         @if(Auth::user())
                             @if (Auth::user()->role == 'admin')
                                 <li><a href="{{ route('admin.clientes.index') }}">Clientes</a></li>
+                                <li><a href="{{ route('admin.categorias.index') }}">Categorias</a></li>
                             @else(Auth::user()->role == 'cliente)
                                 <li><a href="{{ route('cliente.perfil.altera') }}">Perfil</a></li>
                             @endif
